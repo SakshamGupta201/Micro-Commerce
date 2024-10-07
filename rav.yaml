@@ -12,9 +12,16 @@ scripts:
     - python -m pip install -r src/requirements.txt
     - npm install
   win_freeze: python -m pip freeze
-  vendor_pull:
-    - rm -rf src/static/vendor
-    - mkdir -p src/static/vendor/htmx/
-    - mkdir -p src/static/vendor/flowbite/
-    - curl -L https://unpkg.com/htmx.org@1.8.2 -o ./src/static/vendor/htmx/htmx.min.js
-    - cp ./node_modules/flowbite/dist/flowbite.min.js ./src/static/vendor/flowbite/flowbite.min.js
+  vendor_pull: |
+    rm -rf src/static/vendor && \
+    mkdir -p src/static/vendor/htmx/ && \
+    mkdir -p src/static/vendor/flowbite/ && \
+    curl -L https://unpkg.com/htmx.org@1.8.2 -o ./src/static/vendor/htmx/htmx.min.js && \
+    cp ./node_modules/flowbite/dist/flowbite.min.js ./src/static/vendor/flowbite/flowbite.min.js
+
+  vendor_pull_win: |
+    Remove-Item -Recurse -Force src\static\vendor; `
+    New-Item -ItemType Directory -Path src\static\vendor\htmx; `
+    New-Item -ItemType Directory -Path src\static\vendor\flowbite; `
+    Invoke-WebRequest -Uri https://unpkg.com/htmx.org@1.8.2 -OutFile src\static\vendor\htmx\htmx.min.js; `
+    Copy-Item -Path .\node_modules\flowbite\dist\flowbite.min.js -Destination src\static\vendor\flowbite\flowbite.min.js
