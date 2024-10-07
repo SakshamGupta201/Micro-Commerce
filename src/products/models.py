@@ -9,7 +9,7 @@ class Products(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # stripe_id = models.CharField(max_length=120, blank=True, null=True)
     name = models.CharField(max_length=120)
-    handle = models.SlugField(max_length=120, unique=True)
+    handle = models.SlugField(max_length=120, unique=True, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=9.99)
     og_price = models.DecimalField(max_digits=5, decimal_places=2, default=9.99)
     stripe_price = models.IntegerField(default=999)
